@@ -1,0 +1,28 @@
+<h1 class="center">Please register your recipe here</h1>
+<form (ngSubmit)="onSubmit()" #recipeForm="ngForm">
+  <div class="form-group">
+    <input type="text" class="form-control" ngModel name="recipeName" placeholder="Recipe Name">
+  </div>
+  <div class="form-group">
+    <textarea type="text" class="form-control" ngModel name="recipeDescription"  placeholder="Recipe Description"></textarea>
+  </div>
+  <div class="form-group">
+    <textarea type="text" class="form-control" ngModel name="recipeMethod"  placeholder="How to cook it?"></textarea>
+  </div>
+  <div class="form-group">
+    <textarea type="text" class="form-control" ngModel name="recipeIngredient"  placeholder="What ingredients we need"></textarea>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" ngModel name="recipePicture"  placeholder="Provide a picture of the finished product">
+  </div>
+  <div class="form-group">
+    <select class="form-control" ngModel name="recipeCategory">
+      <option>soup</option>
+      <option>dessert</option>
+      <option>main entree</option>
+      <option>snack</option>
+      <option>others</option>
+    </select>
+  </div>
+  <button class="btn btn-success btn-block" type="submit">Submit</button>
+</form>

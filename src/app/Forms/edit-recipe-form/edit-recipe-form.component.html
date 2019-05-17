@@ -1,0 +1,67 @@
+<h1 class="center">Please Edit {{Recipe.Name}}</h1>
+<form (ngSubmit)="onSubmit()" *ngIf="Recipe; else LoadingEditForm" #recipeEditForm="ngForm">
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="Recipe.Name"
+             name="recipeName"
+             placeholder="">
+    </div>
+    <div class="form-group">
+      <textarea
+        type="text"
+        class="form-control"
+        [(ngModel)]="Recipe.Description"
+        name="recipeDescription"
+        placeholder="">
+      </textarea>
+    </div>
+    <div class="form-group">
+      <textarea
+        type="text"
+        class="form-control"
+        [(ngModel)]="Recipe.Method"
+        name="recipeMethod"
+        placeholder="">
+      </textarea>
+    </div>
+    <div class="form-group">
+      <textarea
+        type="text"
+        class="form-control"
+        [(ngModel)]="Recipe.Ingredient"
+        name="recipeIngredient"
+        placeholder=""
+        >
+      </textarea>
+    </div>
+    <div class="form-group">
+      <input type="text"
+             class="form-control"
+             [(ngModel)]="Recipe.PictureUrl"
+             name="recipePicture"
+             placeholder=""
+             >
+    </div>
+    <div class="form-group">
+      <select class="form-control"
+              [(ngModel)]="Recipe.Category"
+              name="recipeCategory"
+              title=""
+              >
+        <option>soup</option>
+        <option>dessert</option>
+        <option>main entree</option>
+        <option>snack</option>
+        <option>others</option>
+      </select>
+    </div>
+    <button
+      class="btn btn-warning btn-block"
+      type="submit">Update</button>
+  </form>
+
+
+<ng-template #LoadingEditForm>
+  <p>Form is Loading</p>
+</ng-template>

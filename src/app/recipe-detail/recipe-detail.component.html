@@ -1,0 +1,79 @@
+<div *ngIf="RecipeDetail && CommentsForRecipe; else loadDetail">
+  <div class="jumbotron">
+    <h1>{{RecipeDetail.Name}}</h1>
+    <img src="{{RecipeDetail.PictureUrl}}" width="60%" height="80%"/>
+    <div>{{RecipeDetail.Description}}</div>
+    <button class="btn btn-primary btn-block"
+    type="button"
+    (click)="NavigateToCommentCreate()">Add Comments</button>
+    <div>
+      <button
+        class="btn btn-success btn-block"
+      type="button"
+      (click)="LikeThisRecipe()">Like this Recipe</button>
+    </div>
+  </div>
+  <div>{{RecipeDetail.Description}}</div>
+  <div>{{RecipeDetail.Ingredient}}</div>
+  <div>{{RecipeDetail.Method}}</div>
+  <div>{{RecipeDetail.Category}}</div>
+</div>
+<div *ngFor="let comment of CommentsForRecipe; let i = index">
+    <div class="row">
+      <div class="col-sm-2">
+        <img src="{{RecipeDetail.PictureUrl}}" width="100%" height="100%"/>
+      </div>
+      <div class="col-sm-10">
+        <div>{{comment.Content}}</div>
+        <div [ngSwitch]="comment.Rating">
+          <div *ngSwitchCase="1">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div>
+          <div *ngSwitchCase="2">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div>
+          <div *ngSwitchCase="3">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div>
+          <div *ngSwitchCase="4">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+          </div>
+          <div *ngSwitchCase="5">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+          </div>
+          <div *ngSwitchDefault>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </div>
+        </div>
+        <button class="btn btn-warning" (click)="NavigateToCommentEdit(comment._id)">Edit</button>
+        <button class="btn btn-danger" (click)="DeletingComment(comment._id, i)">Delete</button>
+      </div>
+    </div>
+</div>
+<ng-template #loadDetail>
+  The content is still loading
+</ng-template>

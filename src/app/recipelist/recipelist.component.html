@@ -1,0 +1,47 @@
+<div *ngIf="RecipeList.length > 0; else AddMoreRecipe" class=" row">
+  <div class="col-sm-2">
+    <div>
+      <button class="btn btn-block btn-primary" (click)="onFilterFoodList('soup')">Soup</button>
+    </div>
+    <div>
+      <button class="btn btn-block btn-success" (click)="onFilterFoodList('dessert')">Dessert</button>
+    </div>
+    <div>
+      <button class="btn btn-block btn-info" (click)="onFilterFoodList('main entree')">Main Entree</button>
+    </div>
+    <div>
+      <button class="btn btn-block btn-danger" (click)="onFilterFoodList('snack')">Snack</button>
+    </div>
+    <div>
+      <button class="btn btn-block btn-warning" (click)="onFilterFoodList('others')">Others</button>
+    </div>
+    <div *ngIf="CancelFilterButton">
+      <button class="btn btn-block btn-danger" (click)="cancelFilter()">Cancel Filter</button>
+    </div>
+  </div>
+  <div class="list-group col-sm-10">
+    <div class="list-group-item list-group-item-action flex-column
+    align-items-start"
+         *ngFor="let recipe of RecipeList; let i = index">
+      <p>{{recipe.Category}}</p>
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{recipe.Name}}</h5>
+        <small>3 days ago</small>
+      </div>
+      <img class="img" width="100px" height="100px" src="{{recipe.PictureUrl}}"/>
+      <div>
+        <p>Created By : Temporary User</p>
+      </div>
+      <div class="row">
+        <div class="col"><button class="btn btn-warning btn-block" (click)="onrecipeEdit(recipe._id)">Edit</button></div>
+        <div class="col"><button class="btn btn-danger btn-block" (click)="onDelete(i, recipe._id)">Delete</button></div>
+        <div class="col"><button class="btn btn-success btn-block" (click)="NavigateToDetail(recipe._id)">Details</button></div>
+        <div class="col"><button class="btn btn-info btn-block" (click)="onSave(recipe._id)">Save</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #AddMoreRecipe>
+  List is now empty
+</ng-template>
+
