@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FoodServiceClient} from '../../../Services/food.service.client';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -10,17 +11,24 @@ import {NgForm} from '@angular/forms';
 export class RegisterFormComponent implements OnInit {
   @ViewChild('RegisterForm') SignUpForm: NgForm;
   FormSubmit = {
-    username: '',
+    email: '',
     password: ''
   }
-  constructor(public foodbackendService: FoodServiceClient) { }
+  fetchedUserInfo: {}
+  constructor(private foodbackendService: FoodServiceClient, private router: Router) { }
 
   ngOnInit() {
+
   }
   onRegister() {
-    this.FormSubmit.username = this.SignUpForm.value.RegisterEmail;
+    this.FormSubmit.email = this.SignUpForm.value.RegisterEmail;
     this.FormSubmit.password = this.SignUpForm.value.RegisterPassword;
-    console.log(this.FormSubmit);
-    this.foodbackendService.RegisterUserUp(this.FormSubmit);
+    this.foodbackendService.RegisterUserUp(this.FormSubmit).then(response => {
+      window.localStorage.setItem('jwt-token', response.token);
+    }).then(res => {
+      this.foodbackendService.FetchUserInfomation().then(user => {
+        console.log(user);
+      });
+    });
   }
 }

@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
+const bcryptjs = require('bcryptjs')
+
 const UserSchema = mongoose.Schema({
   username: String,
   password: String
 }, {collection: "Users"});
 
+UserSchema.pre('save', async function() {
+  if(this.isModified('password') || this.isNew) {
+    const salt = await bcryptjs.genSalt();
+    const hash = await bcryptjs.hash(this.password, salt);
+    this.password = hash;
+  }
+})
 
 module.exports = UserSchema;
 

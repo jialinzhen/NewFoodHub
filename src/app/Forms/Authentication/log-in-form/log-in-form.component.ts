@@ -10,7 +10,7 @@ import {FoodServiceClient} from '../../../Services/food.service.client';
 export class LogInFormComponent implements OnInit {
   @ViewChild('LogInForm') LoginForm: NgForm;
   LogInUserObj = {
-    username: '',
+    email: '',
     password: ''
   }
 
@@ -19,8 +19,13 @@ export class LogInFormComponent implements OnInit {
   ngOnInit() {
   }
   onLogIn() {
-    this.LogInUserObj.username = this.LoginForm.value.LogInEmail;
+    this.LogInUserObj.email = this.LoginForm.value.LogInEmail;
     this.LogInUserObj.password = this.LoginForm.value.LogInPassword;
-    this.foodbackendService.LoggingUserIn(this.LogInUserObj).then(response => console.log(response));
+    this.foodbackendService.LoggingUserIn(this.LogInUserObj).then(response => {
+      window.localStorage.setItem('jwt-token', response.token);
+      }).then((response) => {
+        this.foodbackendService.FetchUserInfomation().then(
+          res => console.log(res));
+    });
   }
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Output} from '@angular/core';
 
 @Injectable()
 export class FoodServiceClient {
@@ -7,7 +7,8 @@ export class FoodServiceClient {
     body: JSON.stringify(recipe),
     method: 'POST',
     headers: {
-      'content-type' : 'application/json'
+      'content-type' : 'application/json',
+      'Authorization': 'bearer ' + window.localStorage.getItem('jwt-token')
     }
   })
   GetAllRecipe = ()  => fetch(this.local + 'allrecipe').then(response => response.json());
@@ -53,7 +54,8 @@ export class FoodServiceClient {
     headers: {
       'content-type' : 'application/json'
     }
-  })
+  }).then(res => res.json())
+  GettingUserInfo = () => fetch(this.local + 'register').then(response => response.json());
   saveRecipeToUser = (id) => fetch(this.local + 'foods/' + id + '/likes', {
     method: 'POST',
     headers: {
@@ -66,7 +68,14 @@ export class FoodServiceClient {
      headers: {
       'content-type': 'application/json'
      }
-  })
+  }).then(res => res.json())
   LoggingUserOut = () => fetch(this.local + 'logout').then(response => console.log(response));
-  FilterFoodList = (string) => fetch(this.local + 'recipes/' + string).then(response => response.json())
+  FilterFoodList = (string) => fetch(this.local + 'recipes/' + string).then(response => response.json());
+  FetchUserInfomation = () => fetch(this.local + 'user', {
+    method: 'POST',
+    headers: {
+      'content-type' : 'application/json',
+      'Authorization' : window.localStorage.getItem('jwt-token')
+    }
+  }).then(res => res.json())
 }

@@ -10,13 +10,16 @@ import {Router} from '@angular/router';
 export class RecipelistComponent implements OnInit {
   RecipeList = [];
   CancelFilterButton = false;
+  User = {};
   constructor(public foodbackendService: FoodServiceClient,
               private router: Router) { }
-
   ngOnInit() {
     this.foodbackendService.GetAllRecipe().then(recipes => {
       this.RecipeList = recipes;
     });
+    if (window.localStorage.getItem('Username') != null) {
+      this.User = window.localStorage.getItem('Username');
+    }
   }
   onrecipeEdit(id) {
     this.router.navigate(['foods/' + id + '/edit']);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FoodServiceClient} from '../Services/food.service.client';
+import {SideBarService} from '../Services/FormService.client';
+
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +11,18 @@ import {FoodServiceClient} from '../Services/food.service.client';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, public foodbackendService: FoodServiceClient) { }
-
+  constructor(private router: Router,
+              public foodbackendService: FoodServiceClient,
+              public sideService: SideBarService) {
+    this.foodbackendService.GettingUserInfo().then(response => {
+      this.UserInfo = response;
+      this.sideService.isUserLoggedIn.subscribe(value => {
+        this.isAuth = true;
+      });
+    });
+  }
+  UserInfo = null;
+  isAuth = false;
   ngOnInit() {
   }
   GoToAllRecipe() {
@@ -26,6 +38,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['foods']);
   }
   LogUserOut() {
-   this.foodbackendService.LoggingUserOut();
+   window.localStorage.removeItem('jwt-token');
   }
 }
+
+
+
