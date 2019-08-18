@@ -14,8 +14,9 @@ import { EditRecipeCommentFormComponent } from './Forms/edit-recipe-comment-form
 import {FoodServiceClient} from './Services/food.service.client';
 import { RegisterFormComponent } from './Forms/Authentication/register-form/register-form.component';
 import { LogInFormComponent } from './Forms/Authentication/log-in-form/log-in-form.component';
-import {SideBarService} from './Services/FormService.client';
 import {AuthGuardService} from './Services/auth-guard.service';
+import {NoAuthGuardService} from './Services/no-auth-guard.service';
+import {AuthService} from './Services/auth.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import {AuthGuardService} from './Services/auth-guard.service';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [FoodServiceClient, SideBarService, AuthGuardService],
+  providers: [FoodServiceClient, AuthGuardService, NoAuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

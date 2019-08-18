@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {FoodServiceClient} from '../../../Services/food.service.client';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../Services/auth.service';
 
 @Component({
   selector: 'app-log-in-form',
@@ -14,18 +16,14 @@ export class LogInFormComponent implements OnInit {
     password: ''
   }
 
-  constructor(public foodbackendService: FoodServiceClient) { }
+  constructor(private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
   onLogIn() {
     this.LogInUserObj.email = this.LoginForm.value.LogInEmail;
     this.LogInUserObj.password = this.LoginForm.value.LogInPassword;
-    this.foodbackendService.LoggingUserIn(this.LogInUserObj).then(response => {
-      window.localStorage.setItem('jwt-token', response.token);
-      }).then((response) => {
-        this.foodbackendService.FetchUserInfomation().then(
-          res => console.log(res));
-    });
+    this.authService.signIn(this.LogInUserObj);
   }
 }
