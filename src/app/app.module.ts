@@ -17,6 +17,7 @@ import { LogInFormComponent } from './Forms/Authentication/log-in-form/log-in-fo
 import {AuthGuardService} from './Services/auth-guard.service';
 import {NoAuthGuardService} from './Services/no-auth-guard.service';
 import {AuthService} from './Services/auth.service';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {AuthService} from './Services/auth.service';
     EditRecipeCommentFormComponent,
     RegisterFormComponent,
     LogInFormComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

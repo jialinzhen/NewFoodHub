@@ -10,6 +10,7 @@ import {RegisterFormComponent} from './Forms/Authentication/register-form/regist
 import {LogInFormComponent} from './Forms/Authentication/log-in-form/log-in-form.component';
 import {AuthGuardService} from './Services/auth-guard.service';
 import {NoAuthGuardService} from './Services/no-auth-guard.service';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'foods', pathMatch: 'full'},
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'foods/:id/edit', component: EditRecipeFormComponent},
   {path: 'foods/:id/createComment', component: CreateRecipeCommentFormComponent},
   {path: 'foods/:id/:commentid/edit', component: EditRecipeCommentFormComponent},
+  {path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

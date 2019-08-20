@@ -11,10 +11,11 @@ import {AuthService} from '../Services/auth.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) {}
-  isAuth = false;
+  isAuth = window.localStorage.getItem('jwt-token') != null;
   ngOnInit() {
     this.authService.authState.subscribe(auth => {
       this.isAuth = auth;
+      console.log(this.isAuth);
     });
   }
   GoToAllRecipe() {
@@ -31,6 +32,9 @@ export class NavbarComponent implements OnInit {
   }
   LogUserOut() {
    this.authService.signout();
+  }
+  GoToProfile() {
+    this.router.navigate(['profile']);
   }
 }
 

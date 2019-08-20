@@ -15,7 +15,6 @@ export class RegisterFormComponent implements OnInit {
     email: '',
     password: ''
   }
-  fetchedUserInfo: {}
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {

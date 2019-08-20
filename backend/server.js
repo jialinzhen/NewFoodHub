@@ -52,7 +52,12 @@ const Recipedao = require('../backend/FoodHubbackenddao/Recipe.dao.server');
 const SaveRecipedao = require('../backend/FoodHubbackenddao/SavedRecipes.dao.server');
 
 app.post('/api/addrecipe', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Recipedao.createSingleRecipe(req.body).then(recipe => res.send(recipe))
+  var auth = req.headers.authorization.substring(7, req.headers.authorization.length);
+  var decoded = jsonwebtoken.verify(auth, 'AHSDEUIYEIUER');
+  var userId = decoded.id;
+  Userdao.findOneById(userId).then(user => {
+    Recipedao.createSingleRecipe(req.body, user._id).then(recipe => res.send(recipe))
+  })
 })
 app.get('/api/allrecipe', (req, res) => {
   Recipedao.fetchAllRecipe().then(response => res.send(response))
@@ -83,7 +88,8 @@ app.delete('/api/foods/:id/comment/:commentid', (req, res) => {
   }).then(response => res.send(response))
 })
 app.post('/api/foods/:id/likes', (req, res) => {
-  SaveRecipedao.onSaveRecipe('5c15f2c1b7be38caa02508fc', req.params.id).then(response => res.send(response))
+  SaveRecipedao.onSaveRecipe('5c15f2c1b7be38caa02508fc', req.params.id)
+    .then(response => res.send(response))
 })
 app.get('/api/recipes/:filterfood', (req, res) => {
   Recipedao.fetchOnlyThereFoodType(req.params.filterfood).then(response => res.send(response))
@@ -93,7 +99,7 @@ app.post('/api/register', (req, res) => {
   Userdao.createUser({username: req.body.email, password: req.body.password})
     .then(user => {
       const token = jsonwebtoken.sign({id: user._id}, 'AHSDEUIYEIUER', {expiresIn: '1d'});
-      res.send({success: "user signUp successfully", token : token})
+      res.send({token : token})
   }).catch(err => {
     res.send(err);
   })
@@ -109,14 +115,14 @@ app.post('/api/login', (req, res) => {
           return res.status(401).json({err: "invalid credentials"});
         } else {
           const token = jsonwebtoken.sign({id: user._id}, 'AHSDEUIYEIUER', {expiresIn: '1d'});
-          res.send({success: "user signIn successfully", token : token})
+          res.send({token : token})
         }
       })
     }
   }).catch(err => {
     return res.status(500).json(err);
   })
-})
+});
 
 app.post('/api/user', (req, res) => {
   var auth = req.headers.authorization;

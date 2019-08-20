@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private foodbackendService: FoodServiceClient,
               private router: Router) {
   }
-  isAuth = false;
   @Output() authState: EventEmitter<boolean> = new EventEmitter();
   Register(formdata) {
     this.foodbackendService.RegisterUserUp(formdata).then(response => {
@@ -19,8 +18,7 @@ export class AuthService {
       this.foodbackendService.FetchUserInfomation().then(user => {
         console.log(user);
         this.router.navigate(['foods']);
-        this.isAuth = true;
-        this.authState.emit(this.isAuth);
+         this.authState.emit(true);
       });
     });
   }
@@ -31,16 +29,13 @@ export class AuthService {
       this.foodbackendService.FetchUserInfomation().then(
         res => {
           this.router.navigate(['foods']);
-          this.isAuth = true;
-          this.authState.emit(this.isAuth);
+           this.authState.emit(true);
         }
       );
     });
   }
   signout() {
     window.localStorage.removeItem('jwt-token');
-    this.router.navigate(['LogIn']);
-    this.isAuth = false;
-    this.authState.emit(this.isAuth);
+     this.authState.emit(false);
   }
 }

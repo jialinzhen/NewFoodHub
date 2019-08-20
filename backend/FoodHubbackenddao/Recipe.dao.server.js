@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const RecipeSchema = require('../FoodHubbackendmodel/Recipe.schema.server');
 const RecipeModel = mongoose.model('RecipeModel', RecipeSchema);
-createSingleRecipe = (recipe) => {
+createSingleRecipe = (recipe, id) => {
   return RecipeModel.create({
-    User: '5c102043252cedcd56dd5aca',
+    User: id,
     Name: recipe.Name,
     Description: recipe.Description,
     Method: recipe.Method,
