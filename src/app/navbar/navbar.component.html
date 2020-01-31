@@ -14,7 +14,7 @@
         <a class="nav-link" (click)="GoToAllFood()" >Food</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="GoToProfile()" *ngIf="isAuth">Profile</a>
+        <a class="nav-link" (click)="GoToProfile()" *ngIf="isAuth">Hello {{User.DisplayName}}</a>
       </li>
     </ul>
     <button class="btn btn-primary" (click)="GoToLogIn()" *ngIf="!isAuth">Log In</button>

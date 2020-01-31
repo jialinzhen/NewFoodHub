@@ -8,6 +8,17 @@ onSaveRecipe = (UserId, RecipeId) => {
     User: UserId
   })
 }
+
+FetchAllSavedRecipe = () => {
+  return SavedRecipeModel.find().populate([{path: 'User'}, {path: 'Recipe'}])
+}
+
+FetchAllSavedRecipeBySingleUser = (id) => {
+  return SavedRecipeModel.findOne({_id: id}).populate([{path: 'User'}, {path: 'Recipe'}])
+}
+
 module.exports = {
-  onSaveRecipe
+  onSaveRecipe,
+  FetchAllSavedRecipe,
+  FetchAllSavedRecipeBySingleUser
 }

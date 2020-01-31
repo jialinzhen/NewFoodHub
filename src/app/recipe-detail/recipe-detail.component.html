@@ -5,12 +5,17 @@
     <div>{{RecipeDetail.Description}}</div>
     <button class="btn btn-primary btn-block"
     type="button"
-    (click)="NavigateToCommentCreate()">Add Comments</button>
+    (click)="NavigateToCommentCreate()"
+            [disabled]="!isAuth"
+    >{{!isAuth ? 'please sign in before adding comment' : 'Tell us what you think' }}</button>
     <div>
       <button
         class="btn btn-success btn-block"
       type="button"
-      (click)="LikeThisRecipe()">Like this Recipe</button>
+      (click)="LikeThisRecipe(RecipeDetail._id)"
+        [disabled]="!isAuth"
+      >{{!isAuth ? 'please sign in before like this recipe' :
+        LikeMode ? 'like this recipe' : 'unlike this recipe'}}</button>
     </div>
   </div>
   <div>{{RecipeDetail.Description}}</div>
@@ -21,7 +26,7 @@
 <div *ngFor="let comment of CommentsForRecipe; let i = index">
     <div class="row">
       <div class="col-sm-2">
-        <img src="{{RecipeDetail.PictureUrl}}" width="100%" height="100%"/>
+        <img src="{{comment.User.profilePicture == null ? ProfilePictureUrl : comment.User.profilePicture}}" width="100%" height="100%"/>
       </div>
       <div class="col-sm-10">
         <div>{{comment.Content}}</div>

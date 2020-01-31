@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {FoodServiceClient} from '../../../Services/food.service.client';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../Services/auth.service';
 
@@ -15,9 +14,13 @@ export class LogInFormComponent implements OnInit {
     email: '',
     password: ''
   }
-
+  isError: '';
   constructor(private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+    this.authService.errorState.subscribe(err => {
+      this.isError = err;
+    });
+  }
 
   ngOnInit() {
   }

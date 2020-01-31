@@ -30,7 +30,8 @@ export class FoodServiceClient {
     body: JSON.stringify(comment),
     method: 'POST',
     headers: {
-      'content-type' : 'application/json'
+      'content-type' : 'application/json',
+      'Authorization': 'bearer ' + window.localStorage.getItem('jwt-token')
     }
   })
   UpdatingCommentForRecipe = (id, comment, commentId) => fetch(this.local + 'foods/' + id + '/comment/' + commentId, {
@@ -56,7 +57,7 @@ export class FoodServiceClient {
     }
   }).then(res => res.json())
   GettingUserInfo = () => fetch(this.local + 'register').then(response => response.json());
-  saveRecipeToUser = (id) => fetch(this.local + 'foods/' + id + '/likes', {
+  saveRecipeToUser = (id) => fetch(this.local + 'foods/' + id + '/save', {
     method: 'POST',
     headers: {
       'content-type' : 'application/json'
@@ -78,4 +79,18 @@ export class FoodServiceClient {
       'Authorization' : window.localStorage.getItem('jwt-token')
     }
   }).then(res => res.json())
+  LikeARecipe = (id) => fetch(this.local + 'foods/' +  id + '/likes', {
+    method: 'POST',
+    headers: {
+      'content-type' : 'application/json',
+      'Authorization': 'bearer ' + window.localStorage.getItem('jwt-token')
+    }
+  })
+  FetchAllLikes = () => fetch(this.local + 'allrecipes/like').then(res => res.json());
+  deleteALike = (id) => fetch(this.local + 'allrecipes/like/' + id, {
+    method: 'DELETE',
+    headers: {
+      'content-type' : 'application/json'
+    }
+  })
 }

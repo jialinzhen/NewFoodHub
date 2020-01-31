@@ -1,12 +1,19 @@
 <h1>Please Register</h1>
 <form (ngSubmit)="onRegister()" #RegisterForm="ngForm">
   <div class="form-group">
+    <input class="form-control" ngModel name="DisplayUserName" placeholder="Please state your name"/>
+  </div>
+  <div class="form-group">
     <input class="form-control" ngModel name="RegisterEmail" email required placeholder="Please Set Your Email"/>
   </div>
   <div class="form-group">
     <input class="form-control" ngModel name="RegisterPassword" placeholder="Please Set Your Password"/>
   </div>
   <div class="form-group">
+    <input class="form-control" ngModel name="RegisterProfileUrl" placeholder="Please Give Your Profile Picture URL"/>
+  </div>
+  <div class="form-group">
     <button type="submit" class="btn btn-success btn-block">Register</button>
   </div>
 </form>
+<h1>{{isError}}</h1>

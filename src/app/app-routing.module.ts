@@ -20,9 +20,9 @@ const routes: Routes = [
   {path: 'foods/create', component: CreateRecipeFormComponent, canActivate: [AuthGuardService]},
   {path: 'foods/:id', component: RecipeDetailComponent},
   {path: 'foods/:id/edit', component: EditRecipeFormComponent},
-  {path: 'foods/:id/createComment', component: CreateRecipeCommentFormComponent},
+  {path: 'foods/:id/createComment', component: CreateRecipeCommentFormComponent, canActivate: [AuthGuardService]},
   {path: 'foods/:id/:commentid/edit', component: EditRecipeCommentFormComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

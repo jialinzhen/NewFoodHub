@@ -11,31 +11,47 @@ export class AuthService {
               private router: Router) {
   }
   @Output() authState: EventEmitter<boolean> = new EventEmitter();
+  @Output() errorState: EventEmitter<String> = new EventEmitter();
+  @Output() userInfo: EventEmitter<{}> = new EventEmitter();
   Register(formdata) {
     this.foodbackendService.RegisterUserUp(formdata).then(response => {
-      window.localStorage.setItem('jwt-token', response.token);
+      if (!response.err) {
+        window.localStorage.setItem('jwt-token', response.token);
+      } else {
+        this.errorState.emit(response.err);
+      }
     }).then(res => {
       this.foodbackendService.FetchUserInfomation().then(user => {
-        console.log(user);
-        this.router.navigate(['foods']);
-         this.authState.emit(true);
+        if (user) {
+          this.router.navigate(['foods']);
+          this.authState.emit(true);
+          this.userInfo.emit(user);
+        }
       });
-    });
+    }).catch(err => console.log(err));
   }
   signIn(formdata) {
     this.foodbackendService.LoggingUserIn(formdata).then(response => {
-      window.localStorage.setItem('jwt-token', response.token);
+      if (!response.err) {
+        window.localStorage.setItem('jwt-token', response.token);
+      } else {
+        this.errorState.emit(response.err);
+      }
     }).then((response) => {
-      this.foodbackendService.FetchUserInfomation().then(
-        res => {
-          this.router.navigate(['foods']);
-           this.authState.emit(true);
-        }
-      );
+      if (window.localStorage.getItem('jwt-token')) {
+        this.foodbackendService.FetchUserInfomation().then(
+          user => {
+            this.router.navigate(['foods']);
+            this.authState.emit(true);
+            this.userInfo.emit(user);
+          }
+        );
+      }
     });
   }
   signout() {
     window.localStorage.removeItem('jwt-token');
+    this.router.navigate(['LogIn']);
      this.authState.emit(false);
   }
 }

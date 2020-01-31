@@ -3,9 +3,9 @@ const CommentSchema = require('../FoodHubbackendmodel/Comments.schema.server');
 const CommentModel = mongoose.model('CommentModel', CommentSchema);
 const Recipedao = require('../FoodHubbackenddao/Recipe.dao.server');
 
-createComment = (id, comment) => {
+createComment = (id, comment, userid) => {
   return CommentModel.create({
-    User: '5c116d490ae31552433fbc1b',
+    User: userid,
     Recipe: id,
     Content: comment.Content,
     Rating: comment.Rating

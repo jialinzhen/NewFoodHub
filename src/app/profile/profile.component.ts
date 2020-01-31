@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FoodServiceClient} from '../Services/food.service.client';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private foodbackendService: FoodServiceClient) { }
+  User = {};
   ngOnInit() {
+    this.foodbackendService.FetchUserInfomation().then(user => {
+      this.User = user;
+      console.log(this.User);
+    });
   }
-
 }

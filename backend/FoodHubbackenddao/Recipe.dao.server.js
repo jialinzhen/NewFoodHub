@@ -13,7 +13,7 @@ createSingleRecipe = (recipe, id) => {
   });
 };
 fetchAllRecipe = () => {
-  return RecipeModel.find().exec();
+  return RecipeModel.find().populate([{path: 'User'}, {path: 'CommentList', populate: {path: 'User'}}])
 };
 fetchOneRecipe = (id) => {
   return RecipeModel.findOne({_id: id}).populate([{path: 'User'},

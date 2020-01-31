@@ -3,7 +3,9 @@ const bcryptjs = require('bcryptjs')
 
 const UserSchema = mongoose.Schema({
   username: String,
-  password: String
+  password: String,
+  profilePicture: String,
+  DisplayName: String
 }, {collection: "Users"});
 
 UserSchema.pre('save', async function() {

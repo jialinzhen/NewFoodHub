@@ -5,8 +5,10 @@ const UserModel = mongoose.model('UserModel', UserSchema);
 
 createUser = (userObject) => {
   return UserModel.create({
+    DisplayName: userObject.displayName,
     username: userObject.username,
-    password: userObject.password
+    password: userObject.password,
+    profilePicture: userObject.profileUrl
   })
 }
 
